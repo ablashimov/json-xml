@@ -5,7 +5,7 @@ namespace App\JsonExporter;
 
 class JsonExporter
 {
-    public function json($xml)
+    public function convertToJson($xml)
     {
         $fileContents = file_get_contents($xml);
         $fileContents = str_replace(array("\n", "\r", "\t"), '', $fileContents);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Downloader;
+namespace Tests\XmlExporter;
 
 use App\XmlExporter\XmlExporter;
 use PHPUnit\Framework\TestCase;

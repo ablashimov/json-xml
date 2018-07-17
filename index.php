@@ -11,7 +11,7 @@ $urls = ['laravel-news.com/feed/json', 'laravel-news.com/feed/json', 'laravel-ne
 
 $exporter = new XmlExporter;
 $client = new Downloader(new Client());
-
+/*
 
 $urls = $client->download($urls);
 
@@ -19,7 +19,8 @@ foreach ($urls as $content) {
     $json = json_decode($content, true);
     $exporter->createXML($json);
 }
-
+*/
 
 $convert = new JsonExporter();
-$json = $convert->convertToJson(__DIR__ . '/name.xml');
+$json = $convert->convertToJson('C:\OSPanel\domains\localhost\exporter\src\XmlExporter\name.xml');
+var_dump($json);

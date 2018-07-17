@@ -8,12 +8,16 @@ use App\XmlExporter\XmlExporter;
 use App\Downloader\Downloader;
 
 $urls = ['laravel-news.com/feed/json', 'laravel-news.com/feed/json', 'laravel-news.com/feed/json'];
+
 $exporter = new XmlExporter;
 $client = new Downloader(new Client());
 
+
 $urls = $client->download($urls);
-foreach ($urls as $url) {
-        $exporter->createXML($url);
+
+foreach ($urls as $content) {
+    $json = json_decode($content, true);
+    $exporter->createXML($json);
 }
 
 

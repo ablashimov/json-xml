@@ -6,30 +6,30 @@ use SimpleXMLElement;
 
 class XmlExporter
 {
-    public function createXML($json)
+    public function createXML(array $content): void
     {
-        $response = json_decode($json, true);
-        if (($response['version'] === "https://jsonfeed.org/version/1")) {
-            $xml_data = new SimpleXMLElement('<?xml version="1.0"?><data></data>');
-           $this->arrayToXml($response, $xml_data);
-            $xml_data->asXML(__DIR__ . '/phpunit.xml');
+        if (($content['version'] === "https://jsonfeed.org/version/1")) {
+            $xml_data = new SimpleXMLElement('<news></news>');
+            $this->arrayToXml($content, $xml_data);
+            $xml_data->asXML(__DIR__ . '/name.xml');
         } else {
             echo 'wrong version';
         }
 
     }
-    public function arrayToXml($data, &$xml_data)
+
+    public function arrayToXml(array $content, SimpleXMLElement &$xml_data): void
     {
-        foreach ($data as $key => $value) {
+        foreach ($content as $key => $value) {
             if (is_numeric($key)) {
-                $key = 'item' . $key; //dealing with <0/>..<n/> issues
+                $key = 'item' . $key;
             }
             if (is_array($value)) {
                 $subnode = $xml_data->addChild($key);
                 $this->ArrayToXml($value, $subnode);
-            } else {
-                $xml_data->addChild("$key", htmlspecialchars("$value"));
+                continue;
             }
+            $xml_data->addChild("$key", htmlspecialchars("$value"));
         }
     }
 }
